@@ -1,0 +1,25 @@
+<template>
+  <v-toolbar class="green" fixed>
+    <v-toolbar-title class="mr-4">
+      Trello
+    </v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-toolbar-items>
+      <v-btn @click="navigateTo({name: 'register'})" flat dense>Sign up</v-btn>
+    </v-toolbar-items>
+  </v-toolbar>
+</template>
+
+<script>
+export default {
+  methods: {
+    navigateTo (route) {
+      console.log(route)
+      this.$router.push(route)
+    }
+  }
+}
+</script>
+
+<style scoped>
+</style>

@@ -1,13 +1,22 @@
 <template>
-  <div class="container">
-    <h1>Register</h1>
-    <input type="email" name="email" placeholder="example@email.com" v-model="credentials.email">
-    <br>
-    <input type="password" name="password" placeholder="password" v-model="credentials.password">
-    <br>
-    <button @click="register">Register</button>
-    <p class="error">{{error}}</p>
-  </div>
+  <v-layout row wrap>
+    <v-flex md6 offset-md3 class="mt-5 elevation-2">
+      <v-toolbar flat dense dark class="green">
+        <v-toolbar-title>Register</v-toolbar-title>
+      </v-toolbar>
+      <div>
+        <v-flex xs10 offset-xs1>
+          <v-text-field id="email" v-model="credentials.email" label="Email"/>
+        </v-flex>
+
+        <v-flex xs10 offset-xs1>
+          <v-text-field id="password" type="password" v-model="credentials.password" label="Password"/>
+        </v-flex>
+        <v-btn color="green" @click="register">Register</v-btn>
+        <p class="err">{{error}}</p>
+      </div>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -37,18 +46,8 @@ export default {
 </script>
 
 <style scoped>
-  .error {
+  .err {
     height: 3em;
     color: red;
-  }
-
-  input {
-    margin: 2em;
-  }
-
-  .container {
-    width: 60%;
-    border: solid 2px;
-    border-radius: 2em;
   }
 </style>

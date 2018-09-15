@@ -30,7 +30,7 @@ export default {
   data () {
     return {
       listTitle: '',
-      addNewList: false
+      addNewList: true
     }
   },
   methods: {

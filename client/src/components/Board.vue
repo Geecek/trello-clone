@@ -1,12 +1,16 @@
 <template>
-  <section class="board">
+  <section
+    class="board"
+  >
     <list v-for="item in items"
       :key="item.title"
       :title="item.title"
       :cards="item.cards"
       class="pt-3 pb-1 list"
     ></list>
-    <add-list></add-list>
+    <add-list
+      @pushList="push($event)"
+    ></add-list>
   </section>
 </template>
 
@@ -36,6 +40,14 @@ export default {
           cards: []
         }
       ]
+    }
+  },
+  methods: {
+    push (title) {
+      this.items.push({
+        title,
+        cards: []
+      })
     }
   }
 }

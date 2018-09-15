@@ -1,13 +1,16 @@
 <template>
   <section class="new-list">
     <v-btn
-      v-bind:class="{visible: addNewList, invisible: !addNewList}"
-      @click="changeView"
+      class="absolute"
+      :class="{visible: addNewList, invisible: !addNewList}"
+      @click="newList"
     ><span class="plus">+</span> Add new list</v-btn>
     <v-form
-      v-bind:class="{visible: !addNewList, invisible: addNewList}"
+      class="absolute"
+      :class="{visible: !addNewList, invisible: addNewList}"
     >
       <v-text-field
+        ref="text"
         v-model="listTitle"
         :counter="16"
         placeholder="Enter list title..."
@@ -15,7 +18,9 @@
         required
       ></v-text-field>
       <div class="form-menu">
-        <v-btn>Add list</v-btn>
+        <v-btn
+          @click="pushList"
+        >Add list</v-btn>
         <v-btn
           class="escape"
           @click="changeView"
@@ -37,6 +42,16 @@ export default {
     changeView () {
       this.addNewList = !this.addNewList
       this.listTitle = ''
+    },
+    pushList () {
+      if (this.listTitle) {
+        this.$emit('pushList', this.listTitle)
+        this.changeView()
+      }
+    },
+    newList () {
+      this.changeView()
+      this.$refs.text.focus()
     }
   }
 }
@@ -44,7 +59,7 @@ export default {
 
 <style scoped>
 .new-list {
-  max-width: 220px;
+  max-width: 180px;
 }
 
 .plus {
@@ -59,5 +74,9 @@ export default {
 .invisible {
   pointer-events: none;
   opacity: 0;
+}
+
+.absolute {
+  position: absolute;
 }
 </style>

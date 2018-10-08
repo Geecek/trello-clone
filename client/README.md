@@ -1,4 +1,4 @@
-# client
+# client side of my trello clone
 
 > A Vue.js project
 

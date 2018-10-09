@@ -1,26 +1,45 @@
 <template>
-  <v-card hover>
-    <span class="title">{{title}}</span>
-    <ul class="pt-2 list">
-      <li v-for="card in cards"
-        :key="card"
+  <v-card class="list">
+    <span class="title pb-3">{{title}}</span>
+      <card v-for="(card, index) in cards"
+        :key="index"
+        :title="card"
         class="card"
-      >{{card}}</li>
-    </ul>
+        @remove="removeCard($event)">
+      </card>
     <v-btn><span class="plus">+</span> Add a card</v-btn>
   </v-card>
 </template>
 
 <script>
+import Card from '@/components/Card.vue'
+
 export default {
+  components: {
+    Card
+  },
   props: {
     title: String,
     cards: Array
+  },
+  methods: {
+    removeCard (title) {
+      const index = this.cards.indexOf(title)
+      this.cards.splice(index, 1)
+    }
   }
 }
 </script>
 
 <style scoped>
+.list {
+  display: grid;
+}
+
+.list:hover {
+  cursor: pointer;
+}
+
 .title {
   font-size: 2em;
 }

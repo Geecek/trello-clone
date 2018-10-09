@@ -1,9 +1,7 @@
 <template>
-  <section
-    class="board"
-  >
-    <list v-for="item in items"
-      :key="item.title"
+  <section class="board">
+    <list v-for="(item, index) in items"
+      :key="index"
       :title="item.title"
       :cards="item.cards"
       class="pt-3 pb-1 list"

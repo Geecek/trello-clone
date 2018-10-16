@@ -5,7 +5,8 @@
         :key="index"
         :title="card"
         class="card"
-        @remove="removeCard($event)">
+        @remove="removeCard($event)"
+        @updateCard="update($event)">
       </card>
     <v-btn><span class="plus">+</span> Add a card</v-btn>
   </v-card>
@@ -26,6 +27,11 @@ export default {
     removeCard (title) {
       const index = this.cards.indexOf(title)
       this.cards.splice(index, 1)
+    },
+    update (title) {
+      const index = this.cards.indexOf(title[0])
+      this.cards[index] = title[1]
+      console.log(this.cards)
     }
   }
 }
@@ -33,7 +39,9 @@ export default {
 
 <style scoped>
 .list {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  min-width: 240px;
 }
 
 .list:hover {
@@ -51,6 +59,6 @@ export default {
 
 .card {
   font-size: 1.2em;
-  margin: 0.2em;
+  margin: 20px 0 20px 0;
 }
 </style>

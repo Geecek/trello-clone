@@ -2,25 +2,23 @@
   <section class="new-list">
     <v-btn
       class="absolute"
-      :class="{visible: addNewList, invisible: !addNewList}"
+      :class="{visible: editing, invisible: !editing}"
       @click="newList"
     ><span class="plus">+</span> Add new list</v-btn>
     <v-form
       class="absolute"
-      :class="{visible: !addNewList, invisible: addNewList}"
+      :class="{visible: !editing, invisible: editing}"
     >
       <v-text-field
         ref="text"
-        v-model="listTitle"
+        v-model="title"
         :counter="16"
         placeholder="Enter list title..."
         solo
         required
       ></v-text-field>
       <div class="form-menu">
-        <v-btn
-          @click="pushList"
-        >Add list</v-btn>
+        <v-btn @click="addNewList">Add list</v-btn>
         <v-btn
           class="escape"
           @click="changeView"
@@ -34,24 +32,24 @@
 export default {
   data () {
     return {
-      listTitle: '',
-      addNewList: true
+      title: '',
+      editing: true
     }
   },
   methods: {
     changeView () {
-      this.addNewList = !this.addNewList
-      this.listTitle = ''
-    },
-    pushList () {
-      if (this.listTitle) {
-        this.$emit('pushList', this.listTitle)
-        this.changeView()
-      }
+      this.editing = !this.editing
+      this.title = ''
     },
     newList () {
       this.changeView()
-      this.$refs.text.focus()
+      this.$nextTick(() => this.$refs.text.focus())
+    },
+    addNewList () {
+      if (this.title) {
+        this.$store.dispatch('board/pushList', { title: this.title })
+        this.changeView()
+      }
     }
   }
 }

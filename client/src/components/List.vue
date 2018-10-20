@@ -1,12 +1,10 @@
 <template>
   <v-card class="list">
     <span class="title pb-3">{{title}}</span>
-      <card v-for="(card, index) in cards"
+      <card v-for="(card, index) in board.lists.find(list => list.title === title).cards"
         :key="index"
         :title="card"
-        class="card"
-        @remove="removeCard($event)"
-        @updateCard="update($event)">
+        class="card">
       </card>
     <v-btn><span class="plus">+</span> Add a card</v-btn>
   </v-card>
@@ -14,6 +12,7 @@
 
 <script>
 import Card from '@/components/Card.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -23,16 +22,10 @@ export default {
     title: String,
     cards: Array
   },
-  methods: {
-    removeCard (title) {
-      const index = this.cards.indexOf(title)
-      this.cards.splice(index, 1)
-    },
-    update (title) {
-      const index = this.cards.indexOf(title[0])
-      this.cards[index] = title[1]
-      console.log(this.cards)
-    }
+  computed: {
+    ...mapState({
+      board: state => state.board
+    })
   }
 }
 </script>

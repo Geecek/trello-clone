@@ -14,13 +14,12 @@
 
         <v-card-actions>
           <v-btn icon><v-icon flat @click="startEditing">create</v-icon></v-btn>
-          <v-btn icon><v-icon flat @click="$emit('remove', title)">clear</v-icon></v-btn>
+          <v-btn icon><v-icon flat>clear</v-icon></v-btn>
         </v-card-actions>
       </div>
   </v-card>
   <form
     :class="{visible: editing, invisible: !editing}"
-    @submit="updateCard"
   >
     <v-text-field
       autofocus
@@ -49,16 +48,8 @@ export default {
   },
   methods: {
     startEditing () {
-      this.editing = !this.editing
+      this.editing = true
       this.$nextTick(() => this.$refs.text.focus())
-    },
-    updateCard () {
-      console.log(this.currentTitle)
-      if (this.currentTitle) {
-        this.$emit('updateCard', [this.title, this.currentTitle])
-        this.editing = false
-        this.currentTitle = ''
-      }
     }
   }
 }

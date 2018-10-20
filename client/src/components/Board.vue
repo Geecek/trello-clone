@@ -1,14 +1,12 @@
 <template>
   <section class="board">
-    <list v-for="(item, index) in items"
+    <list v-for="(list, index) in board.lists"
       :key="index"
-      :title="item.title"
-      :cards="item.cards"
+      :title="list.title"
+      :cards="list.cards"
       class="pt-3 pb-1 list"
     ></list>
-    <add-list
-      @pushList="push($event)"
-    ></add-list>
+    <add-list></add-list>
   </section>
 </template>
 
@@ -16,37 +14,18 @@
 import AddList from '@/components/AddList.vue'
 import List from '@/components/List.vue'
 
+import { mapState } from 'vuex'
+
 export default {
   name: 'Board',
   components: {
     AddList,
     List
   },
-  data () {
-    return {
-      items: [
-        {
-          title: 'Shopping',
-          cards: [
-            'Bread',
-            'Cheese',
-            'Apples'
-          ]
-        },
-        {
-          title: 'Uni',
-          cards: []
-        }
-      ]
-    }
-  },
-  methods: {
-    push (title) {
-      this.items.push({
-        title,
-        cards: []
-      })
-    }
+  computed: {
+    ...mapState({
+      board: state => state.board
+    })
   }
 }
 </script>

@@ -1,9 +1,8 @@
 <template>
   <section class="board">
-    <list v-for="(list, index) in board.lists"
+    <list v-for="(list, index) in board.listTitles"
       :key="index"
       :title="list.title"
-      :cards="list.cards"
       class="pt-3 pb-1 list"
     ></list>
     <add-list></add-list>

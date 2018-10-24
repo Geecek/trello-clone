@@ -1,9 +1,10 @@
 <template>
   <v-card class="list">
     <span class="title pb-3">{{title}}</span>
-      <card v-for="(card, index) in board.lists.find(list => list.title === title).cards"
+      <card v-for="(card, index) in cards.cardTitles[title]"
         :key="index"
         :title="card"
+        :parent="title"
         class="card">
       </card>
     <v-btn><span class="plus">+</span> Add a card</v-btn>
@@ -19,12 +20,12 @@ export default {
     Card
   },
   props: {
-    title: String,
-    cards: Array
+    title: String
   },
   computed: {
     ...mapState({
-      board: state => state.lists
+      board: state => state.lists,
+      cards: state => state.cards
     })
   }
 }

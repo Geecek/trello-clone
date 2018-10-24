@@ -14,18 +14,19 @@
 
         <v-card-actions>
           <v-btn icon><v-icon flat @click="startEditing">create</v-icon></v-btn>
-          <v-btn icon><v-icon flat>clear</v-icon></v-btn>
+          <v-btn icon><v-icon flat @click="$store.dispatch('cards/deleteCard', { parent, title })">clear</v-icon></v-btn>
         </v-card-actions>
       </div>
   </v-card>
   <form
     :class="{visible: editing, invisible: !editing}"
+    @submit="updateCard"
   >
     <v-text-field
       autofocus
       ref="text"
       @blur="editing = false"
-      v-model="currentTitle"
+      v-model="newTitle"
       solo
       height="60px"
       class="absolute text-input"
@@ -38,18 +39,28 @@
 <script>
 export default {
   props: {
-    title: String
+    title: String,
+    parent: String
   },
   data () {
     return {
       editing: false,
-      currentTitle: ''
+      newTitle: ''
     }
   },
   methods: {
     startEditing () {
       this.editing = true
       this.$nextTick(() => this.$refs.text.focus())
+    },
+    updateCard () {
+      this.$store.dispatch('cards/updateCard', {
+        parent: this.parent,
+        title: this.title,
+        newTitle: this.newTitle
+      })
+      this.editing = false
+      this.newTitle = ''
     }
   }
 }

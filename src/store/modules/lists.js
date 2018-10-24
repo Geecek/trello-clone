@@ -1,32 +1,19 @@
 const state = {
-  lists: [
-    {
-      title: 'Shopping',
-      cards: [
-        'Bread',
-        'Cheese',
-        'Apples'
-      ]
-    },
-    {
-      title: 'Uni',
-      cards: []
-    }
+  listTitles: [
+    { title: 'Shopping' },
+    { title: 'Uni' }
   ]
 }
 
 const actions = {
-  pushList (context, { title }) {
+  pushList (context, title) {
     context.commit('pushList', title)
   }
 }
 
 const mutations = {
   pushList (state, title) {
-    state.lists.push({
-      title,
-      cards: []
-    })
+    state.listTitles.push(title)
   }
 }
 

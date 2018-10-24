@@ -48,6 +48,7 @@ export default {
     addNewList () {
       if (this.title) {
         this.$store.dispatch('lists/pushList', { title: this.title })
+        this.$store.dispatch('cards/pushList', { title: this.title })
         this.changeView()
       }
     }

@@ -24,7 +24,7 @@ export default {
   },
   computed: {
     ...mapState({
-      board: state => state.board
+      board: state => state.lists
     })
   }
 }

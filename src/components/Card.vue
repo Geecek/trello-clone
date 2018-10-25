@@ -62,6 +62,11 @@ export default {
       this.editing = false
       this.newTitle = ''
     }
+  },
+  mounted () {
+    if (!this.title) {
+      this.startEditing()
+    }
   }
 }
 </script>

@@ -1,7 +1,8 @@
 const state = {
   listTitles: [
     { title: 'Shopping' },
-    { title: 'Uni' }
+    { title: 'Uni' },
+    { title: 'Trello' }
   ]
 }
 

@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 const state = {
   cardTitles: {
     Uni: [
@@ -7,6 +9,9 @@ const state = {
       'Bread',
       'Cheese',
       'Apples'
+    ],
+    Trello: [
+
     ]
   }
 }
@@ -20,18 +25,24 @@ const actions = {
   },
   deleteCard (context, payload) {
     context.commit('deleteCard', payload)
+  },
+  addCard (context, payload) {
+    context.commit('addCard', payload)
   }
 }
 
 const mutations = {
   pushList (state, { title }) {
-    state.cardTitles[title] = []
+    Vue.set(state.cardTitles, title, [''])
   },
   updateCard (state, { parent, title, newTitle }) {
     state.cardTitles[parent] = state.cardTitles[parent].map(el => el === title ? newTitle : el)
   },
   deleteCard (state, { parent, title }) {
     state.cardTitles[parent] = state.cardTitles[parent].filter(el => el !== title)
+  },
+  addCard (state, { title }) {
+    state.cardTitles[title].push('')
   }
 }
 

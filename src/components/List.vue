@@ -7,7 +7,7 @@
         :parent="title"
         class="card">
       </card>
-    <v-btn><span class="plus">+</span> Add a card</v-btn>
+    <v-btn @click="addCard"><span class="plus">+</span> Add a card</v-btn>
   </v-card>
 </template>
 
@@ -27,6 +27,11 @@ export default {
       board: state => state.lists,
       cards: state => state.cards
     })
+  },
+  methods: {
+    addCard () {
+      this.$store.dispatch('cards/addCard', { title: this.title })
+    }
   }
 }
 </script>

@@ -5,6 +5,7 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items>
+      <v-btn @click="navigateTo({name: 'login'})" flat dense>Sign in</v-btn>
       <v-btn @click="navigateTo({name: 'register'})" flat dense>Sign up</v-btn>
     </v-toolbar-items>
   </v-toolbar>

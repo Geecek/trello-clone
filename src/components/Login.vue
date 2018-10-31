@@ -2,7 +2,7 @@
   <v-layout row wrap>
     <v-flex md6 offset-md3 class="mt-5 elevation-2">
       <v-toolbar flat dense class="green">
-        <v-toolbar-title>Register</v-toolbar-title>
+        <v-toolbar-title>Login</v-toolbar-title>
       </v-toolbar>
       <div>
         <v-flex xs10 offset-xs1>
@@ -12,7 +12,7 @@
         <v-flex xs10 offset-xs1>
           <v-text-field id="password" type="password" v-model="credentials.password" label="Password"/>
         </v-flex>
-        <v-btn color="green" @click="register">Register</v-btn>
+        <v-btn color="green" @click="login">Login</v-btn>
         <p class="err">{{error}}</p>
       </div>
     </v-flex>
@@ -33,9 +33,9 @@ export default {
     }
   },
   methods: {
-    async register () {
+    async login () {
       try {
-        await AuthenticationService.register(this.credentials)
+        await AuthenticationService.login(this.credentials)
       } catch (error) {
         this.error = error.response.data.error
         console.log(this.error)

@@ -33,13 +33,12 @@ export default {
     }
   },
   methods: {
-    async register () {
-      try {
-        await AuthenticationService.register(this.credentials)
-      } catch (error) {
-        this.error = error.response.data.error
-        console.log(this.error)
-      }
+    register () {
+      AuthenticationService.register(this.credentials)
+        .then(response => {
+          this.$router.push('/')
+          console.log(response)
+        })
     }
   }
 }

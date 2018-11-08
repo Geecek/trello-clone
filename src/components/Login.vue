@@ -33,13 +33,14 @@ export default {
     }
   },
   methods: {
-    async login () {
-      try {
-        await AuthenticationService.login(this.credentials)
-      } catch (error) {
-        this.error = error.response.data.error
-        console.log(this.error)
-      }
+    login () {
+      AuthenticationService.login(this.credentials)
+        .then(response => {
+          console.log(response)
+        }).catch(err => {
+          console.log(err)
+          this.error = 'Pass matching email and password!'
+        })
     }
   }
 }

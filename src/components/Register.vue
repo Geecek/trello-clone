@@ -38,6 +38,9 @@ export default {
         .then(response => {
           this.$router.push('/')
           console.log(response)
+        }).catch(err => {
+          this.error = 'Pass a valid email and password!'
+          console.log(err)
         })
     }
   }

@@ -45,7 +45,7 @@ export default {
       this.changeView()
       this.$nextTick(() => this.$refs.text.focus())
     },
-    addNewboard () {
+    addNewBoard () {
       if (this.title) {
         this.$store.dispatch('boards/pushBoard', { title: this.title })
         this.changeView()

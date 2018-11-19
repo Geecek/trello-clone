@@ -25,8 +25,15 @@ export default {
   },
   computed: {
     ...mapState({
-      boards: state => state.boards
+      boards: state => state.boards,
+      userState: state => state.user
     })
+  },
+  mounted () {
+    if (!this.userState.isLoggedIn) {
+      return
+    }
+    this.$store.dispatch('boards/fetchBoards')
   }
 }
 </script>

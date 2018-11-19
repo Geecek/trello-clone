@@ -22,6 +22,8 @@
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
 
+import { mapState } from 'vuex'
+
 export default {
   data () {
     return {
@@ -36,12 +38,20 @@ export default {
     login () {
       AuthenticationService.login(this.credentials)
         .then(response => {
-          console.log(response)
+          this.$store.dispatch('user/setToken', { token: response.headers['x-auth'] })
+          this.$store.dispatch('user/logIn')
+          this.$router.push({ name: 'myboards' })
+          console.log(this.userState)
         }).catch(err => {
           console.log(err)
           this.error = 'Pass matching email and password!'
         })
     }
+  },
+  computed: {
+    ...mapState({
+      userState: state => state.user
+    })
   }
 }
 </script>

@@ -1,27 +1,26 @@
 <template>
   <section class="my-boards">
-    <v-card v-for="(board, index) in boards.boardTitles"
-      :key="index"
-      class="board"
-      hover
+    <board-card v-for="board in boards.boardTitles"
+      :key="board._id"
+      :id="board._id"
+      :title="board.title"
     >
-      <v-card-title>
-        <h1>{{ board.title }}</h1>
-      </v-card-title>
-    </v-card>
+    </board-card>
     <add-board class="mt-5"></add-board>
   </section>
 </template>
 
 <script>
 import AddBoard from '@/components/AddBoard.vue'
+import BoardCard from '@/components/BoardCard.vue'
 
 import { mapState } from 'vuex'
 
 export default {
   name: 'MyBoards',
   components: {
-    AddBoard
+    AddBoard,
+    BoardCard
   },
   computed: {
     ...mapState({

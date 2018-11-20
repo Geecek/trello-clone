@@ -25,6 +25,9 @@ export default {
     ...mapState({
       board: state => state.lists
     })
+  },
+  mounted () {
+    this.$store.dispatch('lists/fetchLists', { parent: this.$route.params.id })
   }
 }
 </script>

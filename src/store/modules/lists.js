@@ -1,12 +1,15 @@
+import ListsService from '@/services/ListsService'
+
 const state = {
-  listTitles: [
-    { title: 'Shopping' },
-    { title: 'Uni' },
-    { title: 'Trello' }
-  ]
+  listTitles: []
 }
 
 const actions = {
+  fetchLists (context, { parent }) {
+    ListsService.get(parent).then((response) => {
+      context.commit('setLists', { lists: response.data.lists })
+    })
+  },
   pushList (context, title) {
     context.commit('pushList', title)
   }
@@ -15,6 +18,9 @@ const actions = {
 const mutations = {
   pushList (state, title) {
     state.listTitles.push(title)
+  },
+  setLists (state, { lists }) {
+    state.listTitles = lists.length > 0 ? lists : null
   }
 }
 

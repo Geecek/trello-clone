@@ -10,17 +10,19 @@ const actions = {
       context.commit('setLists', { lists: response.data.lists })
     })
   },
-  pushList (context, title) {
-    context.commit('pushList', title)
+  pushList (context, list) {
+    ListsService.post(list).then((response) => {
+      context.commit('pushList', response.data)
+    })
   }
 }
 
 const mutations = {
-  pushList (state, title) {
-    state.listTitles.push(title)
-  },
   setLists (state, { lists }) {
-    state.listTitles = lists.length > 0 ? lists : null
+    state.listTitles = lists
+  },
+  pushList (state, list) {
+    state.listTitles = state.listTitles.concat([list])
   }
 }
 

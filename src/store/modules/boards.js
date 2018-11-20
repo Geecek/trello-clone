@@ -12,7 +12,7 @@ const actions = {
   },
   pushBoard (context, board) {
     BoardsService.post(board).then((response) => {
-      context.commit('pushBoard', { title: response.data.title })
+      context.commit('pushBoard', response.data)
     })
   }
 }

@@ -3,6 +3,7 @@
     <list v-for="(list, index) in board.listTitles"
       :key="index"
       :title="list.title"
+      :id="list._id"
       class="pt-3 pb-1 list"
     ></list>
     <add-list></add-list>

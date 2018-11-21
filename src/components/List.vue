@@ -1,10 +1,11 @@
 <template>
   <v-card class="list">
     <span class="title pb-3">{{title}}</span>
-      <card v-for="(card, index) in cards.cardTitles[title]"
+    <!-- TODO: figure out why getters wouldn't work -->
+      <card v-for="(card, index) in cards.cardTitles.filter(card => card._parent === this.id)"
         :key="index"
-        :title="card"
-        :parent="title"
+        :title="card.text"
+        :parent="card._parent"
         class="card">
       </card>
     <v-btn @click="addCard"><span class="plus">+</span> Add a card</v-btn>
@@ -20,7 +21,8 @@ export default {
     Card
   },
   props: {
-    title: String
+    title: String,
+    id: String
   },
   computed: {
     ...mapState({

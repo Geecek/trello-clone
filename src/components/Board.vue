@@ -28,6 +28,7 @@ export default {
   },
   mounted () {
     this.$store.dispatch('lists/fetchLists', { parent: this.$route.params.id })
+    this.$store.dispatch('cards/fetchCards')
   }
 }
 </script>

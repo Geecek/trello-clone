@@ -20,7 +20,7 @@
   </v-card>
   <form
     :class="{visible: editing, invisible: !editing}"
-    @submit="updateCard"
+    v-on="{ submit: title ? updateCard : addCard}"
   >
     <v-text-field
       autofocus
@@ -54,10 +54,12 @@ export default {
       this.$nextTick(() => this.$refs.text.focus())
     },
     updateCard () {
-      this.$store.dispatch('cards/updateCard', {
-        parent: this.parent,
-        title: this.title,
-        newTitle: this.newTitle
+
+    },
+    addCard () {
+      this.$store.dispatch('cards/addCard', {
+        _id: this.parent,
+        text: this.newTitle
       })
       this.editing = false
       this.newTitle = ''

@@ -6,5 +6,8 @@ export default {
   },
   post (card) {
     return Api().post('/todos', card)
+  },
+  delete (card) {
+    return Api().delete(`/todos/${card.id}`)
   }
 }

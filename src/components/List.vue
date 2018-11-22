@@ -3,6 +3,7 @@
     <span class="title pb-3">{{title}}</span>
       <card v-for="(card, index) in cardsByParent(this.id)"
         :key="index"
+        :id="card._id"
         :title="card.text"
         :parent="card._parent"
         class="card">

@@ -14,7 +14,7 @@
 
         <v-card-actions>
           <v-btn icon><v-icon flat @click="startEditing">create</v-icon></v-btn>
-          <v-btn icon><v-icon flat @click="$store.dispatch('cards/deleteCard', { parent, title })">clear</v-icon></v-btn>
+          <v-btn icon><v-icon flat @click="$store.dispatch('cards/deleteCard', { id })">clear</v-icon></v-btn>
         </v-card-actions>
       </div>
   </v-card>
@@ -40,7 +40,8 @@
 export default {
   props: {
     title: String,
-    parent: String
+    parent: String,
+    id: String
   },
   data () {
     return {

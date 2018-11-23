@@ -55,7 +55,12 @@ export default {
       this.$nextTick(() => this.$refs.text.focus())
     },
     updateCard () {
-
+      this.$store.dispatch('cards/updateCard', {
+        id: this.id,
+        text: this.newTitle
+      })
+      this.editing = false
+      this.newTitle = ''
     },
     addCard () {
       this.$store.dispatch('cards/addCard', {

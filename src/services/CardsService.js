@@ -9,5 +9,8 @@ export default {
   },
   delete (card) {
     return Api().delete(`/todos/${card.id}`)
+  },
+  update (card) {
+    return Api().patch(`/todos/${card.id}`, card)
   }
 }

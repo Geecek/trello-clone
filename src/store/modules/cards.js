@@ -1,4 +1,5 @@
 import CardsService from '@/services/CardsService'
+import Vue from 'vue'
 
 const state = {
   cardTitles: []
@@ -23,6 +24,9 @@ const actions = {
     CardsService.delete(card).then((response) => {
       context.commit('deleteCard', response.data)
     })
+  },
+  updateCard (context, card) {
+    CardsService.update(card).then((response) => context.commit('updateCard', response.data))
   }
 }
 
@@ -39,6 +43,10 @@ const mutations = {
   deleteCard (state, { todo }) {
     const index = state.cardTitles.map(card => card._id).indexOf(todo._id)
     state.cardTitles.splice(index, 1)
+  },
+  updateCard (state, { todo }) {
+    const index = state.cardTitles.map(card => card._id).indexOf(todo._id)
+    Vue.set(state.cardTitles, index, todo)
   }
 }
 

@@ -39,7 +39,7 @@ export default {
       AuthenticationService.login(this.credentials)
         .then(response => {
           this.$store.dispatch('user/setToken', { token: response.headers['x-auth'] })
-          this.$store.dispatch('user/logIn')
+          this.$store.dispatch('user/login')
           this.$router.push({ name: 'myboards' })
           console.log(this.userState)
         }).catch(err => {

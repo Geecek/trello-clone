@@ -9,8 +9,8 @@ const actions = {
   setToken (context, token) {
     context.commit('setToken', token)
   },
-  logIn (context) {
-    context.commit('logIn', {})
+  login (context) {
+    context.commit('login', {})
   },
   logout (context) {
     AuthenticationService.logout().then(() => context.commit('logout'))
@@ -21,7 +21,7 @@ const mutations = {
   setToken (state, { token }) {
     state.token = token
   },
-  logIn (state) {
+  login (state) {
     state.isLoggedIn = true
   },
   logout (state) {

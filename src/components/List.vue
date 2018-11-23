@@ -6,6 +6,7 @@
         :id="card._id"
         :title="card.text"
         :parent="card._parent"
+        :completed="card.completed"
         class="card">
       </card>
     <v-btn @click="addTemporaryCard"><span class="plus">+</span> Add a card</v-btn>

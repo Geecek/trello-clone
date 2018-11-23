@@ -8,7 +8,11 @@
         class="default"
         :class="{visible: !editing, invisible: editing}"
       >
-        <span class="text">
+        <span
+          class="text"
+          :class="{ completed }"
+          @click="updateCard({ id, completed: !completed })"
+        >
           {{title}}
         </span>
 
@@ -20,7 +24,7 @@
   </v-card>
   <form
     :class="{visible: editing, invisible: !editing}"
-    v-on="{ submit: title ? updateCard : addCard}"
+    v-on="{ submit: title ? () => updateCard({ id, text: newTitle }) : addCard }"
   >
     <v-text-field
       autofocus
@@ -41,7 +45,8 @@ export default {
   props: {
     title: String,
     parent: String,
-    id: String
+    id: String,
+    completed: Boolean
   },
   data () {
     return {
@@ -54,11 +59,8 @@ export default {
       this.editing = true
       this.$nextTick(() => this.$refs.text.focus())
     },
-    updateCard () {
-      this.$store.dispatch('cards/updateCard', {
-        id: this.id,
-        text: this.newTitle
-      })
+    updateCard (card) {
+      this.$store.dispatch('cards/updateCard', card)
       this.editing = false
       this.newTitle = ''
     },
@@ -96,6 +98,11 @@ export default {
 .card {
   min-width: 120px;
   min-height: 60px;
+}
+
+.completed {
+  color: lightgrey;
+  text-decoration: line-through;
 }
 
 .main {

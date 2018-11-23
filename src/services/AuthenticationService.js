@@ -6,5 +6,8 @@ export default {
   },
   login (credentials) {
     return Api().post('/users/login', credentials)
+  },
+  logout () {
+    return Api().delete('/users/me/token')
   }
 }

@@ -1,3 +1,5 @@
+import AuthenticationService from '@/services/AuthenticationService'
+
 const state = {
   isLoggedIn: false,
   token: null
@@ -9,6 +11,9 @@ const actions = {
   },
   logIn (context) {
     context.commit('logIn', {})
+  },
+  logout (context) {
+    AuthenticationService.logout().then(() => context.commit('logout'))
   }
 }
 
@@ -18,6 +23,10 @@ const mutations = {
   },
   logIn (state) {
     state.isLoggedIn = true
+  },
+  logout (state) {
+    state.isLoggedIn = false
+    state.token = null
   }
 }
 

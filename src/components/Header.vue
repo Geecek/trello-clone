@@ -7,6 +7,7 @@
     <v-toolbar-items>
       <v-btn v-if="!$store.state.user.isLoggedIn" @click="navigateTo({name: 'login'})" flat dense>Sign in</v-btn>
       <v-btn v-if="!$store.state.user.isLoggedIn" @click="navigateTo({name: 'register'})" flat dense>Sign up</v-btn>
+      <v-btn v-if="$store.state.user.isLoggedIn" @click="logout" flat dense>Logout</v-btn>
     </v-toolbar-items>
   </v-toolbar>
 </template>
@@ -17,6 +18,10 @@ export default {
     navigateTo (route) {
       console.log(route)
       this.$router.push(route)
+    },
+    logout () {
+      this.$store.dispatch('user/logout')
+      this.navigateTo({name: 'index'})
     }
   }
 }

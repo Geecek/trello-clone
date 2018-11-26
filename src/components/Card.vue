@@ -7,6 +7,9 @@
       <div
         class="default"
         :class="{visible: !editing, invisible: editing}"
+        draggable="true"
+        @dragstart="startDraggingCard"
+        @dragend="dropCard($event)"
       >
         <span
           class="text"
@@ -41,6 +44,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   props: {
     title: String,
@@ -53,6 +58,12 @@ export default {
       editing: false,
       newTitle: ''
     }
+  },
+  computed: {
+    ...mapState({
+      board: state => state.lists,
+      cards: state => state.cards
+    })
   },
   methods: {
     startEditing () {
@@ -71,6 +82,16 @@ export default {
       })
       this.editing = false
       this.newTitle = ''
+    },
+    startDraggingCard () {
+      this.$store.dispatch('cards/setDraggingCard', this.id)
+    },
+    dropCard (event) {
+      const cardID = this.cards.draggingCard
+      const listID = this.board.droppingList
+      this.$store.dispatch('cards/updateCard', {id: cardID, _parent: listID})
+      this.$store.dispatch('cards/unsetDraggingCard')
+      this.$store.dispatch('lists/unsetDroppingList')
     }
   },
   mounted () {

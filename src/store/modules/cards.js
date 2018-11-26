@@ -2,7 +2,8 @@ import CardsService from '@/services/CardsService'
 import Vue from 'vue'
 
 const state = {
-  cardTitles: []
+  cardTitles: [],
+  draggingCard: null
 }
 
 const actions = {
@@ -27,6 +28,12 @@ const actions = {
   },
   updateCard (context, card) {
     CardsService.update(card).then((response) => context.commit('updateCard', response.data))
+  },
+  setDraggingCard (context, cardID) {
+    context.commit('setDraggingCard', cardID)
+  },
+  unsetDraggingCard (context) {
+    context.commit('unsetDraggingCard')
   }
 }
 
@@ -47,6 +54,12 @@ const mutations = {
   updateCard (state, { todo }) {
     const index = state.cardTitles.map(card => card._id).indexOf(todo._id)
     Vue.set(state.cardTitles, index, todo)
+  },
+  setDraggingCard (state, cardID) {
+    state.draggingCard = cardID
+  },
+  unsetDraggingCard (state) {
+    state.draggingCard = null
   }
 }
 

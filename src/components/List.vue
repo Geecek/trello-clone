@@ -1,5 +1,9 @@
 <template>
-  <v-card class="list">
+  <v-card
+    class="list"
+    :class="{green: id === board.droppingList}"
+    @dragover="setDroppingList($event)"
+    @dragleave="unsetDroppingList($event)">
     <span class="title pb-3">{{title}}</span>
       <card v-for="(card, index) in cardsByParent(this.id)"
         :key="index"
@@ -37,6 +41,14 @@ export default {
   methods: {
     addTemporaryCard () {
       this.$store.dispatch('cards/addTemporaryCard', { text: '', _parent: this.id })
+    },
+    setDroppingList (event) {
+      event.preventDefault()
+      this.$store.dispatch('lists/setDroppingList', this.id)
+    },
+    unsetDroppingList (event) {
+      event.preventDefault()
+      this.$store.dispatch('lists/unsetDroppingList')
     }
   }
 }

@@ -1,7 +1,8 @@
 import ListsService from '@/services/ListsService'
 
 const state = {
-  listTitles: []
+  listTitles: [],
+  droppingList: null
 }
 
 const actions = {
@@ -14,6 +15,12 @@ const actions = {
     ListsService.post(list).then((response) => {
       context.commit('pushList', response.data)
     })
+  },
+  setDroppingList (context, listID) {
+    context.commit('setDroppingList', listID)
+  },
+  unsetDroppingList (context) {
+    context.commit('unsetDroppingList')
   }
 }
 
@@ -23,6 +30,12 @@ const mutations = {
   },
   pushList (state, list) {
     state.listTitles = state.listTitles.concat([list])
+  },
+  setDroppingList (state, listID) {
+    state.droppingList = listID
+  },
+  unsetDroppingList (state) {
+    state.droppingList = null
   }
 }
 

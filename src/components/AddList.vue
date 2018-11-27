@@ -3,7 +3,7 @@
     <v-btn
       class="absolute"
       :class="{visible: editing, invisible: !editing}"
-      @click="newList"
+      @click.prevent="newList"
     ><span class="plus">+</span> Add new list</v-btn>
     <v-form
       class="absolute"
@@ -18,10 +18,10 @@
         required
       ></v-text-field>
       <div class="form-menu">
-        <v-btn @click="addNewList">Add list</v-btn>
+        <v-btn @click.prevent="addNewList">Add list</v-btn>
         <v-btn
           class="escape"
-          @click="changeView"
+          @click.prevent="changeView"
         >exit</v-btn>
       </div>
     </v-form>

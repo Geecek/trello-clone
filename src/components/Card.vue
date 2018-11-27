@@ -9,25 +9,25 @@
         :class="{visible: !editing, invisible: editing}"
         draggable="true"
         @dragstart="startDraggingCard"
-        @dragend="dropCard($event)"
+        @dragend="dropCard"
       >
         <span
           class="text"
           :class="{ completed }"
-          @click="updateCard({ id, completed: !completed })"
+          @click="updateCard($event, { id, completed: !completed })"
         >
           {{title}}
         </span>
 
         <v-card-actions>
-          <v-btn icon><v-icon flat @click="startEditing">create</v-icon></v-btn>
-          <v-btn icon><v-icon flat @click="$store.dispatch('cards/deleteCard', { id })">clear</v-icon></v-btn>
+          <v-btn icon><v-icon flat @click.prevent="startEditing">create</v-icon></v-btn>
+          <v-btn icon><v-icon flat @click.prevent="$store.dispatch('cards/deleteCard', { id })">clear</v-icon></v-btn>
         </v-card-actions>
       </div>
   </v-card>
   <form
     :class="{visible: editing, invisible: !editing}"
-    v-on="{ submit: title ? () => updateCard({ id, text: newTitle }) : addCard }"
+    v-on="{ submit: title ? ($event) => updateCard($event, { id, text: newTitle }) : ($event) => addCard($event) }"
   >
     <v-text-field
       autofocus
@@ -70,12 +70,14 @@ export default {
       this.editing = true
       this.$nextTick(() => this.$refs.text.focus())
     },
-    updateCard (card) {
+    updateCard (event, card) {
+      event.preventDefault()
       this.$store.dispatch('cards/updateCard', card)
       this.editing = false
       this.newTitle = ''
     },
-    addCard () {
+    addCard (event) {
+      event.preventDefault()
       this.$store.dispatch('cards/addCard', {
         _id: this.parent,
         text: this.newTitle
@@ -86,7 +88,7 @@ export default {
     startDraggingCard () {
       this.$store.dispatch('cards/setDraggingCard', this.id)
     },
-    dropCard (event) {
+    dropCard () {
       const cardID = this.cards.draggingCard
       const listID = this.board.droppingList
       this.$store.dispatch('cards/updateCard', {id: cardID, _parent: listID})
